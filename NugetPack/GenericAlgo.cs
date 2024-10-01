@@ -92,10 +92,11 @@ namespace NugetPack
             List<Solution> newPopulation = new List<Solution>();
             var SortedSolutions = population.OrderBy(s => s.count_metric()).ToList();
             List<Solution> SelectedPopulation = new List<Solution>();
-            for (int i = 0; i < SortedSolutions.Count / 2;  ++i)
+            for (int i = 0; i < SortedSolutions.Count / 4;  ++i)
             {
                 SelectedPopulation.Add((Solution) SortedSolutions[i].Clone());
-                ///SelectedPopulation.Add(SortedSolutions[random.Next(SortedSolutions.Count / 4, SortedSolutions.Count / 4 * 3)]);
+                SelectedPopulation.Add((Solution)SortedSolutions[
+                    random.Next(SortedSolutions.Count / 4, SortedSolutions.Count / 4 * 3)].Clone());
             }
 
             while (newPopulation.Count < population.Count)
