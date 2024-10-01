@@ -12,19 +12,21 @@ namespace NugetPack
             for (int i = 0; i < population_size; ++i)
             {
                 var list = new List<Rectangle>();
+                int n_obs = n_obs_1 + n_obs_2 + n_obs_3;
+                int max_l = n_obs; 
                 for (int j = 0; j < n_obs_1; ++j)
                 {
-                    list.Add(new Rectangle(random.Next(0, 20), random.Next(0, 20), 1, 1));
+                    list.Add(new Rectangle(random.Next(0, max_l), random.Next(0, max_l), 1, 1));
                     
                 }
                 for (int j = 0; j < n_obs_2; ++j)
                 {
-                    list.Add(new Rectangle(random.Next(0, 20), random.Next(0, 20), 2, 2));
+                    list.Add(new Rectangle(random.Next(0, max_l), random.Next(0, max_l), 2, 2));
 
                 }
                 for (int j = 0; j < n_obs_3; ++j)
                 {
-                    list.Add(new Rectangle(random.Next(0, 20), random.Next(0, 20), 3, 3));
+                    list.Add(new Rectangle(random.Next(0, max_l), random.Next(0, max_l), 3, 3));
 
                 }
 
@@ -65,17 +67,17 @@ namespace NugetPack
         private void Mutate(Solution sol)
         {
             foreach (var rec in  sol.rectangles) {
-                if (random.Next(0, 10) < 3)
+                if (random.Next(0, 10) <= 4 - rec.weight)
                 {
-                    int dx = random.Next(-2, 3);
+                    int dx = random.Next(-2, 2);
                     
                     rec.x_l += dx;
                     rec.x_r += dx;
                     
                 }
-                if (random.Next(0, 10) < 3)
+                if (random.Next(0, 10) <= 4 - rec.weight)
                 {
-                    int dy = random.Next(-2, 3);
+                    int dy = random.Next(-2, 2);
                     rec.y_t += dy;
                     rec.y_b += dy;
                 } 
@@ -117,14 +119,14 @@ namespace NugetPack
             var solutions = newPopulation.OrderBy(s => s.count_metric()).ToList();
             for (int i = 0; SelectedPopulation.Count < population.Count; ++i) 
             {
-                SelectedPopulation.Add((Solution) solutions[i].Clone());
+                SelectedPopulation.Add(solutions[i]);
             }
 
             
             this.population.Clear();
             for (int i = 0; i < SelectedPopulation.Count; ++i)
             {
-                this.population.Add((Solution) SelectedPopulation[i].Clone());
+                this.population.Add(SelectedPopulation[i]);
             }
             this.population = population.OrderBy(s => s.count_metric()).ToList();
 
@@ -142,7 +144,7 @@ namespace NugetPack
                 Console.WriteLine($"Поколение : {i}, \n Площадь: {best_sol.count_metric()} \n");
                 foreach (var sq in best_sol.rectangles)
                 {
-                    Console.WriteLine($"x_l: {sq.x_l} y_b: {sq.y_b} w: {sq.weight} h: {sq.height}");
+                    ///Console.WriteLine($"x_l: {sq.x_l} y_b: {sq.y_b} w: {sq.weight} h: {sq.height}");
                 }
 
                 this.Evolute();
