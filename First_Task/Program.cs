@@ -6,7 +6,7 @@ public class Prog
     public static void Main()
     {
         var GenAlg = new GenericAlgo();
-        GenAlg.Initialize(3, 3, 3, 64);
+        GenAlg.Initialize(2, 2, 1, 64);
         var bestSol = GenAlg.GetBestSol(100);
 
         Console.WriteLine("Лучшая расстановка:");
@@ -15,15 +15,9 @@ public class Prog
             Console.WriteLine($"x_l: {sq.x_l} y_b: {sq.y_b} w: {sq.weight} h: {sq.height}");
         }
 
-        Console.WriteLine($"Площадь содержащего прямокгольника: {bestSol.count_metric()}");
-        ///Console.WriteLine($"Площадь содержащего прямокгольника: {bestSol.count_metric()}");
-        ///Console.WriteLine($"Площадь содержащего прямокгольника: {bestSol.count_metric()}");
-        ///Console.WriteLine($"Площадь содержащего прямокгольника: {bestSol.count_metric()}");
-        if (bestSol.IsValid())
-        {
-            ///Console.WriteLine("Бред");
-
-        }
+        Console.WriteLine($"Площадь содержащего прямоугольника: {bestSol.count_metric()}");
+        
+        
 
     }
 }
